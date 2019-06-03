@@ -89,6 +89,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 "  ]\n" +
                 "}\n";
 
+        jsonstr4 = "{\n" +
+                "  \"code\": 200,\n" +
+                "  \"msg\": \"OK\",\n" +
+                "  \"child\": [\n" +
+                "    {\n" +
+                "      \"name\": \"zhangsan\",\n" +
+                "      \"age\": \"10\",\n" +
+                "      \"phone\": \"11111\",\n" +
+                "      \"email\": \"11111@11.com\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\": \"lisi\",\n" +
+                "      \"age\": \"40\",\n" +
+                "      \"phone\": \"22222\",\n" +
+                "      \"email\": \"22222@22.com\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
+        jsonstr5 = "{\n" +
+                "  \"group\": {\n" +
+                "    \"user\": {\n" +
+                "      \"name\": \"张三\",\n" +
+                "      \"age\": \"10\",\n" +
+                "      \"phone\": \"11111\",\n" +
+                "      \"email\": \"11111@11.com\"\n" +
+                "    },\n" +
+                "    \"info\": {\n" +
+                "      \"address\": \"北京\",\n" +
+                "      \"work\": \"Android Dev\",\n" +
+                "      \"pay\": \"10K\",\n" +
+                "      \"motto\": \"先定一个小目标，比如我先赚一个亿\"\n" +
+                "    }\n" +
+                "  }\n" +
+                "}";
+
 
     }
 

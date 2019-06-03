@@ -3,6 +3,7 @@ package com.yuyang.jsondemo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -11,11 +12,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.yuyang.jsondemo.bean.Child;
 import com.yuyang.jsondemo.bean.Muser;
 import com.yuyang.jsondemo.bean.Person;
 import com.yuyang.jsondemo.bean.Student;
 import com.yuyang.jsondemo.bean.StudentRoot;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +52,88 @@ public class Main2Activity extends AppCompatActivity {
             parseHaveHeaderJArray();
         }else if (id == 3){
             parseComplexJArrayByCommon();
+        }else if (id == 4){
+            parseComplexJArrayByDirect();
+        }else if (id == 5){
+            try{
+                parseComplexJArrayByReader();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
   }
+
+    /**
+     * 通过JsonReader的方式去解析
+     */
+    private void parseComplexJArrayByReader() throws IOException {
+        JsonReader jsonReader = new JsonReader(new StringReader(getjsonstr));
+
+        try{
+            jsonReader.beginObject();
+            String tagName = jsonReader.nextName();
+            if (tagName.equals("group")){
+
+                readGroup(jsonReader);
+            }
+
+        }finally {
+            jsonReader.close();
+        }
+
+    }
+
+    private void readGroup(JsonReader jsonReader) throws IOException{
+
+        jsonReader.beginObject();
+        while (jsonReader.hasNext()){
+            String tagName = jsonReader.nextName();
+            if (tagName.equals("user")){
+                readUser(jsonReader);
+            }
+        }
+
+    }
+
+    private void readUser(JsonReader jsonReader) {
+    }
+
+    /**
+     * 有数据头 复杂数据 截取方式
+     */
+    private void parseComplexJArrayByDirect() {
+
+        List<Child> childList = new ArrayList<>();
+
+        JsonObject jsonObject = new JsonParser().parse(getjsonstr).getAsJsonObject();
+
+        Gson gson = new Gson();
+
+        //创建JsonArray
+        JsonArray jsonArray = jsonObject.getAsJsonArray("child");
+
+        //创建实体类集合
+        for (JsonElement jsonElement : jsonArray){
+
+            Child child = gson.fromJson(jsonElement,Child.class);
+
+            //条件过滤
+            if (Integer.parseInt(child.getAge()) >30){
+                childList.add(child);
+            }
+        }
+
+
+        //展示
+        for(int i = 0;i < childList.size();i++){
+
+            System.out.println(childList.get(i).getName() + " " + childList.get(i).getEmail() + "  "
+                    + childList.get(i).getAge() + " " +childList.get(i).getPhone());
+        }
+
+
+
+    }
 
     /**
      * 有消息头 复杂数据 常规方式
