@@ -7,10 +7,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.gson.Gson;
+import com.yuyang.jsondemo.bean.TestToJson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btn_1, btn_2, btn_3, btn_4, btn_5;
+    Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6;
 
     String jsonstr1, jsonstr2, jsonstr3, jsonstr4, jsonstr5;
 
@@ -24,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initValue();
         initListener();
 
-
     }
 
     private void initListener() {
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_3.setOnClickListener(this);
         btn_4.setOnClickListener(this);
         btn_5.setOnClickListener(this);
+        btn_6.setOnClickListener(this);
 
     }
 
@@ -198,8 +202,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 "    }\n" +
                 "  }\n" +
                 "}";
-
-
     }
 
     private void initView() {
@@ -208,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_3 = findViewById(R.id.btn_3);
         btn_4 = findViewById(R.id.btn_4);
         btn_5 = findViewById(R.id.btn_5);
+        btn_6 = findViewById(R.id.btn_6);
     }
 
     @Override
@@ -243,6 +246,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent4.putExtra("id",5);
                 startActivity(intent4);
                 break;
+            case R.id.btn_6:
+                TestToJson testToJson = new TestToJson();
+                testToJson.setId(2019);
+                testToJson.setName("yuyang");
+                TestToJson.InnerClass innerClass = new TestToJson().new InnerClass();
+                innerClass.inId = 201906;
+                innerClass.innerName = "yuyanghaha";
+                List<TestToJson.InnerClass> innerClassList = new ArrayList<>();
+                innerClassList.add(innerClass);
+                testToJson.setInnerClassList(innerClassList);
+
+                Gson gson = new Gson();
+                String classTojson = gson.toJson(testToJson);
+                System.out.println(classTojson);
+
                 default:break;
 
         }

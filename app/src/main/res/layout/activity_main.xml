@@ -55,6 +55,15 @@
         android:layout_marginTop="20dp"
         />
 
+    <Button
+        android:id="@+id/btn_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="实体类转换为json数据"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        />
+
 
 
 
